@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId()== R.id.button_location){
-            Intent i=new Intent(this, LocationActivity.class);
+            Intent i=new Intent(this, MapsActivity.class);
             startActivity(i);
         }
     }

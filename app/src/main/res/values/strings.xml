@@ -3,4 +3,6 @@
     <string name="localização_txt">Localização</string>
     <string name="start_txt">Start</string>
     <string name="stop_txt">Stop</string>
+    <string name="LocationText_txt">LocationTextView</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
