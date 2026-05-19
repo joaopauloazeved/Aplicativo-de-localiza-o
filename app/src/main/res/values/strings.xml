@@ -5,4 +5,5 @@
     <string name="stop_txt">Stop</string>
     <string name="LocationText_txt">LocationTextView</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="Configuração_txt">Configuração</string>
 </resources>

@@ -1,9 +1,14 @@
 package com.example.atividade3;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,15 +24,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Button btnlocation =  findViewById(R.id.button_location);
+        TextView textView = findViewById(R.id.textView);
+        Button buttonLocation = findViewById(R.id.button_location);
+        Button buttonConfig = findViewById(R.id.button_config);
 
-        btnlocation.setOnClickListener(this);
+        Animation fade = AnimationUtils.loadAnimation(this, R.anim.suav);
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
+
+        textView.startAnimation(fade);
+        buttonLocation.startAnimation(pulse);
+
+        buttonLocation.setOnClickListener(this);
+        buttonConfig.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId()== R.id.button_location){
-            Intent i=new Intent(this, MapsActivity.class);
+            Intent i=new Intent(this, LocationActivity.class);
+            startActivity(i);
+            }
+        if (view.getId()== R.id.button_config){
+            Intent i=new Intent(this, config.class);
             startActivity(i);
         }
     }

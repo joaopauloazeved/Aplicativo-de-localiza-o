@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -56,11 +57,15 @@ public class LocationActivity extends AppCompatActivity {
 
     public void startLocationUpdate() {
 
+        if (locationCallback != null) {
+            return;
+        }
+
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
 
-            long timeInterval = 5000;
+            long timeInterval = 3000;
 
             LocationRequest locationRequest =
                     new LocationRequest.Builder(
@@ -92,12 +97,23 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     private void stopLocationUpdate() {
+
         if (fusedLocationProviderClient != null && locationCallback != null) {
+
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+
+
+            Toast.makeText(this,
+                    "Atualização parada",
+                    Toast.LENGTH_SHORT).show();
+            Log.d("GPS", "Atualizando localização");
+
+
+            locationCallback = null;
         }
     }
     public void atualizaLocationTextView(Location location) {
-        TextView locationTextView = findViewById(R.id.LocationTextView);
+        TextView locationTextView = findViewById(R.id.LocationText);
 
         String s = "Dados da Última Localização:\n";
 
@@ -106,7 +122,7 @@ public class LocationActivity extends AppCompatActivity {
             s += "Longitude: " + location.getLongitude() + "\n";
             s += "Altitude: " + location.getAltitude() + "\n";
             s += "Rumo (graus): " + location.getBearing() + "\n";
-            s += "Velocidade (m/s): " + location.getSpeed() + "\n"; // corrigido
+            s += "Velocidade (m/s): " + location.getSpeed() + "\n";
             s += "Precisão (m): " + location.getAccuracy() + "\n";
         }
 
