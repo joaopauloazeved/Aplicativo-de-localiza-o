@@ -1,7 +1,5 @@
 package com.example.atividade3;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +10,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView textView = findViewById(R.id.textView);
         Button buttonLocation = findViewById(R.id.button_location);
-        Button buttonConfig = findViewById(R.id.button_config);
+        Button buttonmaps = findViewById(R.id.button_maps);
 
         Animation fade = AnimationUtils.loadAnimation(this, R.anim.suav);
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
@@ -35,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonLocation.startAnimation(pulse);
 
         buttonLocation.setOnClickListener(this);
-        buttonConfig.setOnClickListener(this);
+        buttonmaps.setOnClickListener(this);
     }
 
     @Override
@@ -44,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent i=new Intent(this, LocationActivity.class);
             startActivity(i);
             }
-        if (view.getId()== R.id.button_config){
-            Intent i=new Intent(this, config.class);
+        if (view.getId()== R.id.button_maps){
+            Intent i=new Intent(this, MapsActivity.class);
             startActivity(i);
         }
     }
