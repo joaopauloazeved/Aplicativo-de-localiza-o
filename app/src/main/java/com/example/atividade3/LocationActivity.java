@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,11 +26,22 @@ public class LocationActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
+    private DatabaseHelper databaseHelper;
+
+    private long trilhaId;
+
+    private double velocidadeMaxima = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
+
+        setContentView(R.layout.activity_location);
+
+        databaseHelper = new DatabaseHelper(this);
         setContentView(R.layout.activity_location);
 
         Button btnStart = findViewById(R.id.button_start);
@@ -40,30 +50,33 @@ public class LocationActivity extends AppCompatActivity {
         fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(this);
 
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startLocationUpdate();
-            }
-        });
+        // BOTÃO INICIAR
+        btnStart.setOnClickListener(v -> startLocationUpdate());
 
-        btnStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stopLocationUpdate();
-            }
-        });
+        // BOTÃO PARAR
+        btnStop.setOnClickListener(v -> stopLocationUpdate());
+
+        trilhaId = databaseHelper.inserirTrilha(
+                "Minha Trilha",
+                String.valueOf(System.currentTimeMillis()),
+                "",
+                0,
+                0,
+                0,
+                ""
+        );
     }
 
     public void startLocationUpdate() {
 
-        if (locationCallback != null) {
-            return;
-        }
+        // Evita múltiplos rastreamentos
+        stopOnlyTracking();
 
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+        // Verifica permissão
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
 
             long timeInterval = 3000;
 
@@ -74,10 +87,28 @@ public class LocationActivity extends AppCompatActivity {
                     ).build();
 
             locationCallback = new LocationCallback() {
+
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
+
                     super.onLocationResult(locationResult);
-                    Location location = locationResult.getLastLocation();
+
+                    Location location =
+                            locationResult.getLastLocation();
+                    double velocidadeAtual =
+                            location.getSpeed() * 3.6;
+
+                    if (velocidadeAtual > velocidadeMaxima) {
+
+                        velocidadeMaxima = velocidadeAtual;
+                    }
+
+                    // SALVA PONTO NO SQLITE
+                    databaseHelper.inserirPonto(
+                            trilhaId,
+                            location.getLatitude(),
+                            location.getLongitude()
+                    );
 
                     atualizaLocationTextView(location);
                 }
@@ -89,65 +120,132 @@ public class LocationActivity extends AppCompatActivity {
                     null
             );
 
+            Toast.makeText(
+                    this,
+                    "Rastreamento iniciado",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            Log.d("GPS", "Atualização iniciada");
+
         } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_LOCATION_UPDATES);
+
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    },
+                    REQUEST_LOCATION_UPDATES
+            );
         }
     }
 
-    private void stopLocationUpdate() {
+    // PARA APENAS O GPS
+    private void stopOnlyTracking() {
 
-        if (fusedLocationProviderClient != null && locationCallback != null) {
+        if (locationCallback != null) {
 
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-
-
-            Toast.makeText(this,
-                    "Atualização parada",
-                    Toast.LENGTH_SHORT).show();
-            Log.d("GPS", "Atualizando localização");
-
 
             locationCallback = null;
         }
     }
-    public void atualizaLocationTextView(Location location) {
-        TextView locationTextView = findViewById(R.id.LocationText);
 
-        String s = "Dados da Última Localização:\n";
+    // PARA GPS E VOLTA PARA MAIN
+    private void stopLocationUpdate() {
 
-        if (location != null) {
-            s += "Latitude: " + location.getLatitude() + "\n";
-            s += "Longitude: " + location.getLongitude() + "\n";
-            s += "Altitude: " + location.getAltitude() + "\n";
-            s += "Rumo (graus): " + location.getBearing() + "\n";
-            s += "Velocidade (m/s): " + location.getSpeed() + "\n";
-            s += "Precisão (m): " + location.getAccuracy() + "\n";
-        }
+        stopOnlyTracking();
 
-        locationTextView.setText(s);
+        Toast.makeText(
+                this,
+                "Rastreamento parado",
+                Toast.LENGTH_SHORT
+        ).show();
+
+        Log.d("GPS", "Atualização parada");
+
+        // Volta para MainActivity
+        finish();
     }
 
+    public void atualizaLocationTextView(Location location) {
+
+        TextView locationTextView =
+                findViewById(R.id.LocationText);
+
+        if (location != null) {
+
+            float velocidade =
+                    location.getSpeed() * 3.6f;
+
+            String s =
+                    "Latitude:\n"
+                            + location.getLatitude()
+
+                            + "\n\nLongitude:\n"
+                            + location.getLongitude()
+
+                            + "\n\nVelocidade:\n"
+                            + String.format("%.2f", velocidade)
+                            + " km/h"
+
+                            + "\n\nPrecisão:\n"
+                            + String.format("%.2f",
+                            location.getAccuracy())
+                            + " metros"
+
+                            + "\n\nAltitude:\n"
+                            + String.format("%.2f",
+                            location.getAltitude())
+                            + " m"
+
+                            + "\n\nRumo:\n"
+                            + String.format("%.2f",
+                            location.getBearing())
+                            + "°";
+
+            locationTextView.setText(s);
+        }
+    }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions,
-                                           int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String[] permissions,
+            int[] grantResults) {
+
+        super.onRequestPermissionsResult(
+                requestCode,
+                permissions,
+                grantResults
+        );
 
         if (requestCode == REQUEST_LOCATION_UPDATES) {
-            if (grantResults.length == 1 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            if (grantResults.length > 0
+                    && grantResults[0]
+                    == PackageManager.PERMISSION_GRANTED) {
 
                 startLocationUpdate();
 
             } else {
-                Toast.makeText(this,
-                        "Sem permissão para mostrar atualizações da sua localização",
-                        Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(
+                        this,
+                        "Permissão negada",
+                        Toast.LENGTH_SHORT
+                ).show();
+
                 finish();
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+        stopOnlyTracking();
     }
 }

@@ -2,20 +2,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
-    android:orientation="vertical">
+    android:padding="24dp"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Configurações"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#2E7D32"
+        android:layout_marginBottom="30dp"/>
+
+    <!-- MAPA -->
 
     <Button
         android:id="@+id/btnVetorial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mapa Vetorial" />
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:text="Mapa Vetorial"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#2E7D32"/>
 
     <Button
         android:id="@+id/btnSatelite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
         android:text="Mapa Satélite"
-        android:layout_marginTop="20dp"/>
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#388E3C"
+        android:layout_marginTop="15dp"/>
+
+    <!-- NAVEGAÇÃO -->
+
+    <Button
+        android:id="@+id/btnNorthUp"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:text="North Up"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1565C0"
+        android:layout_marginTop="35dp"/>
+
+    <Button
+        android:id="@+id/btnCourseUp"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:text="Course Up"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#0277BD"
+        android:layout_marginTop="15dp"/>
+
+    <!-- SALVAR -->
+
+    <Button
+        android:id="@+id/btnSalvar"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:text="Salvar Configurações"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#C62828"
+        android:layout_marginTop="40dp"/>
 
 </LinearLayout>

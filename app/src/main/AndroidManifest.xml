@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Atividade3">
         <activity
-            android:name=".config"
-            android:exported="false" />
-        <activity
             android:name=".Config"
             android:exported="false" />
         <!--

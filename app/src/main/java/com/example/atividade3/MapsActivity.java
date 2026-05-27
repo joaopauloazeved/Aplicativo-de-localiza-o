@@ -1,12 +1,12 @@
 package com.example.atividade3;
 
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,19 +22,32 @@ public class MapsActivity extends FragmentActivity
 
     private GoogleMap mMap;
 
-    // Código da requisição
     private static final int REQUEST_CONFIG = 1;
+
+    private int tipoMapa = GoogleMap.MAP_TYPE_NORMAL;
+
+    private boolean courseUp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_maps);
 
-        // Botão Config
-        Button btnconfig = findViewById(R.id.button_config);
+        // BOTÃO CONFIG
+        Button btnconfig =
+                findViewById(R.id.button_config);
+
         btnconfig.setOnClickListener(this);
 
-        // Inicializa o mapa
+        // BOTÃO VOLTAR
+        Button btnBack =
+                findViewById(R.id.button_back);
+
+        btnBack.setOnClickListener(v -> finish());
+
+        // MAPA
         SupportMapFragment mapFragment =
                 (SupportMapFragment)
                         getSupportFragmentManager()
@@ -43,26 +56,23 @@ public class MapsActivity extends FragmentActivity
         mapFragment.getMapAsync(this);
     }
 
-    // Clique do botão
     @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.button_config) {
 
-            Intent i = new Intent(
-                    this,
-                    Config.class);
+            Intent i =
+                    new Intent(this, Config.class);
 
-            // Abre Config esperando resultado
             startActivityForResult(i, REQUEST_CONFIG);
         }
     }
 
-    // Recebe o resultado da Config
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data) {
+    protected void onActivityResult(
+            int requestCode,
+            int resultCode,
+            Intent data) {
 
         super.onActivityResult(
                 requestCode,
@@ -72,12 +82,15 @@ public class MapsActivity extends FragmentActivity
         if (requestCode == REQUEST_CONFIG
                 && resultCode == RESULT_OK) {
 
-            int tipoMapa = data.getIntExtra(
+            tipoMapa = data.getIntExtra(
                     "tipoMapa",
                     GoogleMap.MAP_TYPE_NORMAL);
 
-            // Muda o tipo do mapa
-            mMap.setMapType(tipoMapa);
+            courseUp = data.getBooleanExtra(
+                    "courseUp",
+                    false);
+
+            atualizarMapa();
         }
     }
 
@@ -86,44 +99,56 @@ public class MapsActivity extends FragmentActivity
 
         mMap = googleMap;
 
-        // Coordenadas da UCSAL
+        atualizarMapa();
+    }
+
+    private void atualizarMapa() {
+
+        if (mMap == null) return;
+
+        mMap.clear();
+
+        mMap.setMapType(tipoMapa);
+
         LatLng ucsal =
                 new LatLng(-12.94825, -38.41334);
 
-        // CameraPosition
+        float bearing;
+
+        // COURSE UP
+        if (courseUp) {
+            bearing = 180;
+        }
+
+        // NORTH UP
+        else {
+            bearing = 0;
+        }
+
         CameraPosition cameraPosition =
-                new CameraPosition(
-                        ucsal,
-                        18,
-                        45,
-                        90
-                );
+                new CameraPosition.Builder()
+                        .target(ucsal)
+                        .zoom(18)
+                        .tilt(45)
+                        .bearing(bearing)
+                        .build();
 
-        // Marcador UCSAL
-        mMap.addMarker(new MarkerOptions()
-                .position(ucsal)
-                .title("UCSAL")
-                .snippet("Campus Pituaçu"));
-
-        // Marcador Salvador
-        LatLng salvador =
-                new LatLng(-12.9714, -38.5014);
-
-        mMap.addMarker(new MarkerOptions()
-                .position(salvador)
-                .title("Salvador - BA"));
-
-        // Anima câmera
         mMap.animateCamera(
                 CameraUpdateFactory
                         .newCameraPosition(cameraPosition));
 
-        // Círculo
-        mMap.addCircle(new CircleOptions()
-                .center(ucsal)
-                .radius(200)
-                .strokeWidth(5)
-                .strokeColor(Color.RED)
-                .fillColor(0x30FF0000));
+        mMap.addMarker(
+                new MarkerOptions()
+                        .position(ucsal)
+                        .title("UCSAL")
+                        .snippet("Campus Pituaçu"));
+
+        mMap.addCircle(
+                new CircleOptions()
+                        .center(ucsal)
+                        .radius(200)
+                        .strokeWidth(5)
+                        .strokeColor(Color.RED)
+                        .fillColor(0x30FF0000));
     }
 }

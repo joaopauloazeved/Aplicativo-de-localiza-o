@@ -1,47 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_secondary_variant"
-    tools:context=".LocationActivity">
+    android:background="#F5F5F5">
 
-    <Button
-        android:id="@+id/button_start"
-        android:layout_width="409dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/design_default_color_primary"
-        android:text="@string/start_txt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <Button
-        android:id="@+id/button_stop"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/design_default_color_primary"
-        android:text="@string/stop_txt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monitoramento GPS"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="25dp"/>
 
-    <TextView
-        android:id="@+id/LocationText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/LocationText_txt"
-        android:textSize="10pt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/LocationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="20dp"
+            android:textSize="18sp"
+            android:textColor="#212121"
+            android:elevation="5dp"
+            android:text="Aguardando localização..." />
+
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Iniciar Rastreamento"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginTop="25dp"/>
+
+        <Button
+            android:id="@+id/button_stop"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Parar Rastreamento"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:backgroundTint="#C62828"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
