@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Círculo externo (borda branca) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,4 C13,4 4,13 4,24 C4,35 13,44 24,44 C35,44 44,35 44,24 C44,13 35,4 24,4Z"/>
+
+    <!-- Círculo interno (azul) -->
+    <path
+        android:fillColor="#1565C0"
+        android:pathData="M24,8 C15,8 8,15 8,24 C8,33 15,40 24,40 C33,40 40,33 40,24 C40,15 33,8 24,8Z"/>
+
+    <!-- Seta apontando para cima (branca) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,13 L32,33 L24,28 L16,33 Z"/>
+
+</vector>

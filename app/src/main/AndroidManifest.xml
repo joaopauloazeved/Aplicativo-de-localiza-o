@@ -33,6 +33,12 @@
             android:value="AIzaSyA8DVzflGuGNt6uhmvI_32pemK9pFQPB00" />
 
         <activity
+            android:name=".RegistrarTrilhaActivity"/>
+        <activity
+            android:name=".ConsultarTrilhasActivity"/>
+        <activity
+            android:name=".VisualizarTrilhaActivity"/>
+        <activity
             android:name=".MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />

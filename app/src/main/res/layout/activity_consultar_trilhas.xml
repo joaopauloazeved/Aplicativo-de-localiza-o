@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/activity_consultar_trilhas.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- Cabeçalho simples -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#1A237E"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Minhas Trilhas"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btn_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="← Voltar"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:backgroundTint="#44FFFFFF"/>
+
+    </LinearLayout>
+
+    <!-- Lista de trilhas -->
+    <ListView
+        android:id="@+id/listview_trilhas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#E0E0E0"
+        android:dividerHeight="1dp"/>
+
+    <!-- Mensagem lista vazia -->
+    <TextView
+        android:id="@+id/tv_lista_vazia"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Nenhuma trilha registrada ainda.\nInicie uma trilha para começar!"
+        android:textColor="#9E9E9E"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+</LinearLayout>

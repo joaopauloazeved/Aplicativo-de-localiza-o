@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/dialog_intervalo.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data início (dd/MM/yyyy):"
+        android:textSize="14sp"
+        android:textColor="#212121"/>
+
+    <EditText
+        android:id="@+id/et_data_inicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ex: 01/01/2025"
+        android:inputType="datetime"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data fim (dd/MM/yyyy):"
+        android:textSize="14sp"
+        android:textColor="#212121"/>
+
+    <EditText
+        android:id="@+id/et_data_fim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ex: 31/12/2025"
+        android:inputType="datetime"/>
+
+</LinearLayout>

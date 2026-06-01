@@ -33,7 +33,7 @@
         android:id="@+id/button_location"
         android:layout_width="280dp"
         android:layout_height="60dp"
-        android:text="Registrar Trilha"
+        android:text="Coordenadas"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:backgroundTint="#2E7D32"
@@ -41,6 +41,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="70dp"/>
+
+    <Button
+        android:id="@+id/button_registrar"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="240dp"
+        android:backgroundTint="#2E7D32"
+        android:text="Registrar Trilha"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
+
+    <Button
+        android:id="@+id/button_consultar"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="328dp"
+        android:backgroundTint="#2E7D32"
+        android:text="Consultar Trilha"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
     <Button
         android:id="@+id/button_maps"

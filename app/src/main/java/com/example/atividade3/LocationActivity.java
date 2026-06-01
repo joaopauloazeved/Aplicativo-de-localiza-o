@@ -50,10 +50,10 @@ public class LocationActivity extends AppCompatActivity {
         fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(this);
 
-        // BOTÃO INICIAR
+
         btnStart.setOnClickListener(v -> startLocationUpdate());
 
-        // BOTÃO PARAR
+
         btnStop.setOnClickListener(v -> stopLocationUpdate());
 
         trilhaId = databaseHelper.inserirTrilha(
@@ -151,7 +151,7 @@ public class LocationActivity extends AppCompatActivity {
         }
     }
 
-    // PARA GPS E VOLTA PARA MAIN
+
     private void stopLocationUpdate() {
 
         stopOnlyTracking();
@@ -163,8 +163,6 @@ public class LocationActivity extends AppCompatActivity {
         ).show();
 
         Log.d("GPS", "Atualização parada");
-
-        // Volta para MainActivity
         finish();
     }
 

@@ -35,19 +35,16 @@ public class MapsActivity extends FragmentActivity
 
         setContentView(R.layout.activity_maps);
 
-        // BOTÃO CONFIG
         Button btnconfig =
                 findViewById(R.id.button_config);
 
         btnconfig.setOnClickListener(this);
 
-        // BOTÃO VOLTAR
         Button btnBack =
                 findViewById(R.id.button_back);
 
         btnBack.setOnClickListener(v -> finish());
 
-        // MAPA
         SupportMapFragment mapFragment =
                 (SupportMapFragment)
                         getSupportFragmentManager()
