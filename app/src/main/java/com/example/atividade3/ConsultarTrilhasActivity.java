@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ConsultarTrilhasActivity extends AppCompatActivity {
 
-    private DatabaseHelper db;
+    private Banco db;
     private ListView listView;
     private TrilhaAdapter adapter;
     private List<TrilhaItem> trilhas;
@@ -30,7 +30,7 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_trilhas);
 
-        db      = new DatabaseHelper(this);
+        db      = new Banco(this);
         trilhas = new ArrayList<>();
 
         listView = findViewById(R.id.listview_trilhas);
@@ -54,14 +54,14 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
         if (c != null) {
             while (c.moveToNext()) {
                 TrilhaItem t = new TrilhaItem();
-                t.id         = c.getInt(c.getColumnIndexOrThrow(DatabaseHelper.COL_ID));
-                t.nome       = c.getString(c.getColumnIndexOrThrow(DatabaseHelper.COL_NOME));
-                t.dataInicio = c.getString(c.getColumnIndexOrThrow(DatabaseHelper.COL_DATA_INICIO));
-                t.dataFim    = c.getString(c.getColumnIndexOrThrow(DatabaseHelper.COL_DATA_FIM));
-                t.velMedia   = c.getDouble(c.getColumnIndexOrThrow(DatabaseHelper.COL_VEL_MEDIA));
-                t.velMax     = c.getDouble(c.getColumnIndexOrThrow(DatabaseHelper.COL_VEL_MAX));
-                t.distancia  = c.getDouble(c.getColumnIndexOrThrow(DatabaseHelper.COL_DISTANCIA));
-                t.duracao    = c.getString(c.getColumnIndexOrThrow(DatabaseHelper.COL_DURACAO));
+                t.id         = c.getInt(c.getColumnIndexOrThrow(Banco.COL_ID));
+                t.nome       = c.getString(c.getColumnIndexOrThrow(Banco.COL_NOME));
+                t.dataInicio = c.getString(c.getColumnIndexOrThrow(Banco.COL_DATA_INICIO));
+                t.dataFim    = c.getString(c.getColumnIndexOrThrow(Banco.COL_DATA_FIM));
+                t.velMedia   = c.getDouble(c.getColumnIndexOrThrow(Banco.COL_VEL_MEDIA));
+                t.velMax     = c.getDouble(c.getColumnIndexOrThrow(Banco.COL_VEL_MAX));
+                t.distancia  = c.getDouble(c.getColumnIndexOrThrow(Banco.COL_DISTANCIA));
+                t.duracao    = c.getString(c.getColumnIndexOrThrow(Banco.COL_DURACAO));
                 trilhas.add(t);
             }
             c.close();
@@ -73,7 +73,6 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
         listView.setVisibility(trilhas.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
-    // ──────────────── ADAPTER ────────────────
 
     private class TrilhaAdapter extends ArrayAdapter<TrilhaItem> {
         TrilhaAdapter() { super(ConsultarTrilhasActivity.this, 0, trilhas); }
@@ -102,7 +101,6 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
         }
     }
 
-    // ──────────────── EDITAR NOME ────────────────
 
     private void dialogEditarNome(TrilhaItem t) {
         EditText input = new EditText(this);
@@ -124,7 +122,6 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
                 .show();
     }
 
-    // ──────────────── APAGAR UMA ────────────────
 
     private void confirmarApagarUma(TrilhaItem t) {
         new AlertDialog.Builder(this)
@@ -139,7 +136,6 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
                 .show();
     }
 
-    // ──────────────── VER MAPA ────────────────
 
     private void abrirMapaTrilha(TrilhaItem t) {
         Intent i = new Intent(this, VisualizarTrilhaActivity.class);
@@ -154,7 +150,6 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    // ──────────────── MODEL ────────────────
 
     static class TrilhaItem {
         int id;

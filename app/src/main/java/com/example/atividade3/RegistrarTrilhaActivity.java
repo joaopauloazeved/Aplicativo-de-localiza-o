@@ -65,7 +65,7 @@ public class RegistrarTrilhaActivity extends FragmentActivity implements OnMapRe
     private boolean temPosicaoInicial = false;
 
     // Database
-    private DatabaseHelper db;
+    private Banco db;
     private long trilhaId = -1;
     private String dataInicio;
 
@@ -96,7 +96,7 @@ public class RegistrarTrilhaActivity extends FragmentActivity implements OnMapRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_trilha);
 
-        db = new DatabaseHelper(this);
+        db = new Banco (this);
 
         tvVelocidade = findViewById(R.id.tv_velocidade);
         tvVelMax     = findViewById(R.id.tv_vel_max);
@@ -121,12 +121,12 @@ public class RegistrarTrilhaActivity extends FragmentActivity implements OnMapRe
         btnSimular.setOnClickListener(v -> {
             modoSimulacao = !modoSimulacao;
             if (modoSimulacao) {
-                btnSimular.setText("🧪 SIMULAÇÃO: ON");
+                btnSimular.setText("SIMULAÇÃO: ON");
                 btnSimular.setBackgroundTintList(
                         android.content.res.ColorStateList.valueOf(Color.parseColor("#2E7D32")));
                 Toast.makeText(this, "Modo simulação ativado. Clique em INICIAR.", Toast.LENGTH_SHORT).show();
             } else {
-                btnSimular.setText("🧪 MODO SIMULAÇÃO");
+                btnSimular.setText("MODO SIMULAÇÃO");
                 btnSimular.setBackgroundTintList(
                         android.content.res.ColorStateList.valueOf(Color.parseColor("#E65100")));
             }

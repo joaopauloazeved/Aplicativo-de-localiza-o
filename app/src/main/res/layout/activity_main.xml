@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5">
@@ -28,19 +29,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"/>
-
-    <Button
-        android:id="@+id/button_location"
-        android:layout_width="280dp"
-        android:layout_height="60dp"
-        android:text="Coordenadas"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:backgroundTint="#2E7D32"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="70dp"/>
 
     <Button
         android:id="@+id/button_registrar"
@@ -74,13 +62,16 @@
         android:id="@+id/button_maps"
         android:layout_width="280dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#388E3C"
         android:text="Visualizar Mapa"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:backgroundTint="#388E3C"
-        app:layout_constraintTop_toBottomOf="@id/button_location"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_registrar"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

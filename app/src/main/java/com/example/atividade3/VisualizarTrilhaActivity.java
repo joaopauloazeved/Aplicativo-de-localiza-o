@@ -22,7 +22,7 @@ import java.util.Locale;
 public class VisualizarTrilhaActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private DatabaseHelper db;
+    private Banco db;
 
     private int trilhaId;
     private String nome, dataInicio, dataFim, duracao;
@@ -33,7 +33,7 @@ public class VisualizarTrilhaActivity extends FragmentActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizar_trilha);
 
-        db = new DatabaseHelper(this);
+        db = new Banco(this);
 
         // Recebe dados da trilha
         Bundle extras = getIntent().getExtras();

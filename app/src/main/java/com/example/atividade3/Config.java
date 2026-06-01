@@ -17,7 +17,6 @@ public class Config extends AppCompatActivity {
     Button btnNorthUp;
     Button btnCourseUp;
 
-    // Variáveis padrão
     int tipoMapa = GoogleMap.MAP_TYPE_NORMAL;
     boolean courseUp = false;
 
@@ -36,27 +35,22 @@ public class Config extends AppCompatActivity {
         btnNorthUp = findViewById(R.id.btnNorthUp);
         btnCourseUp = findViewById(R.id.btnCourseUp);
 
-        // MAPA VETORIAL
         btnVetorial.setOnClickListener(v -> {
             tipoMapa = GoogleMap.MAP_TYPE_NORMAL;
         });
 
-        // MAPA SATÉLITE
         btnSatelite.setOnClickListener(v -> {
             tipoMapa = GoogleMap.MAP_TYPE_SATELLITE;
         });
 
-        // NORTH UP
         btnNorthUp.setOnClickListener(v -> {
             courseUp = false;
         });
 
-        // COURSE UP
         btnCourseUp.setOnClickListener(v -> {
             courseUp = true;
         });
 
-        // Salva tudo ao clicar em qualquer botão final
         Button btnSalvar = findViewById(R.id.btnSalvar);
 
         btnSalvar.setOnClickListener(v -> {
