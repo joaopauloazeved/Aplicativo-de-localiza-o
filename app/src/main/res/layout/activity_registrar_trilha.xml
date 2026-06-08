@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- res/layout/activity_registrar_trilha.xml -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,7 +8,7 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,26 +24,43 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <Button
-                android:id="@+id/btn_voltar"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:text="← Voltar"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:backgroundTint="#44FFFFFF"
-                android:layout_marginEnd="8dp"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="8dp">
+
+                <Button
+                    android:id="@+id/btn_voltar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="← Voltar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:backgroundTint="#44FFFFFF"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_config"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="⚙ Config"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:backgroundTint="#44FFFFFF"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_cronometro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:gravity="center"
                 android:text="00:00:00"
                 android:textColor="#FFFFFF"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:fontFamily="monospace"/>
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_status"
@@ -52,9 +68,8 @@
                 android:layout_height="wrap_content"
                 android:text="● PARADO"
                 android:textColor="#888888"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:paddingEnd="4dp"/>
+                android:textSize="12sp"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <View
@@ -69,83 +84,35 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VELOCIDADE"
-                    android:textColor="#AAAAAA"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.1"/>
-
-                <TextView
-                    android:id="@+id/tv_velocidade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0.0 km/h"
-                    android:textColor="#4FC3F7"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="VELOCIDADE" android:textColor="#AAAAAA" android:textSize="10sp"/>
+                <TextView android:id="@+id/tv_velocidade" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="0.0 km/h"
+                    android:textColor="#4FC3F7" android:textSize="20sp" android:textStyle="bold"/>
             </LinearLayout>
 
             <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#44FFFFFF"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VEL. MÁXIMA"
-                    android:textColor="#AAAAAA"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.1"/>
-
-                <TextView
-                    android:id="@+id/tv_vel_max"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0.0 km/h"
-                    android:textColor="#FF8A65"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="VEL. MÁXIMA" android:textColor="#AAAAAA" android:textSize="10sp"/>
+                <TextView android:id="@+id/tv_vel_max" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="0.0 km/h"
+                    android:textColor="#FF8A65" android:textSize="20sp" android:textStyle="bold"/>
             </LinearLayout>
 
             <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#44FFFFFF"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DISTÂNCIA"
-                    android:textColor="#AAAAAA"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.1"/>
-
-                <TextView
-                    android:id="@+id/tv_distancia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0 m"
-                    android:textColor="#81C784"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="DISTÂNCIA" android:textColor="#AAAAAA" android:textSize="10sp"/>
+                <TextView android:id="@+id/tv_distancia" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="0 m"
+                    android:textColor="#81C784" android:textSize="20sp" android:textStyle="bold"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -154,49 +121,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="#CC000000"
         android:padding="12dp">
 
         <Button
-            android:id="@+id/btn_simular"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginBottom="8dp"
-            android:text="🧪 MODO SIMULAÇÃO"
-            android:backgroundTint="#E65100"
+            android:id="@+id/btn_iniciar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:text="INICIAR TRILHA"
+            android:backgroundTint="#4CAF50"
             android:textColor="#FFFFFF"
-            android:textSize="12sp"
             android:textStyle="bold"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_parar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_iniciar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="6dp"
-                android:text="INICIAR TRILHA"
-                android:backgroundTint="#4CAF50"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"/>
-
-            <Button
-                android:id="@+id/btn_parar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="6dp"
-                android:text="FINALIZAR"
-                android:backgroundTint="#F44336"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:enabled="false"/>
-        </LinearLayout>
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:text="FINALIZAR"
+            android:backgroundTint="#F44336"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:enabled="false"/>
     </LinearLayout>
 
 </FrameLayout>

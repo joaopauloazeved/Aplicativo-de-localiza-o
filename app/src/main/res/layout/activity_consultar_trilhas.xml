@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- res/layout/activity_consultar_trilhas.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -7,32 +6,68 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
+    <!-- Cabeçalho -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="#1A237E"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:padding="12dp">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Minhas Trilhas"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btn_voltar"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="← Voltar"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:backgroundTint="#44FFFFFF"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Minhas Trilhas"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
+            <Button
+                android:id="@+id/btn_voltar"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="← Voltar"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:backgroundTint="#44FFFFFF"/>
+        </LinearLayout>
+
+        <!-- Botões de apagar globais -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btn_apagar_intervalo"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="Apagar por intervalo"
+                android:backgroundTint="#FF6F00"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"/>
+
+            <Button
+                android:id="@+id/btn_apagar_todas"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="Apagar todas"
+                android:backgroundTint="#B71C1C"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ListView
@@ -48,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Nenhuma trilha registrada ainda.\nInicie uma trilha para começar!"
+        android:text="Nenhuma trilha registrada ainda."
         android:textColor="#9E9E9E"
         android:textSize="16sp"
         android:gravity="center"

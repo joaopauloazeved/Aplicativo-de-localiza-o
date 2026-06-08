@@ -39,6 +39,12 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_voltar).setOnClickListener(v -> finish());
 
+
+        findViewById(R.id.btn_apagar_todas).setOnClickListener(v -> confirmarApagarTodas());
+
+
+        findViewById(R.id.btn_apagar_intervalo).setOnClickListener(v -> apagarPorIntervalo());
+
         carregarTrilhas();
     }
 
@@ -67,11 +73,11 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
             c.close();
         }
         adapter.notifyDataSetChanged();
-
         TextView tvVazia = findViewById(R.id.tv_lista_vazia);
         tvVazia.setVisibility(trilhas.isEmpty() ? View.VISIBLE : View.GONE);
         listView.setVisibility(trilhas.isEmpty() ? View.GONE : View.VISIBLE);
     }
+
 
 
     private class TrilhaAdapter extends ArrayAdapter<TrilhaItem> {
@@ -79,12 +85,11 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
+            if (convertView == null)
                 convertView = LayoutInflater.from(getContext())
                         .inflate(R.layout.item_trilha, parent, false);
-            }
-            TrilhaItem t = trilhas.get(position);
 
+            TrilhaItem t = trilhas.get(position);
             ((TextView) convertView.findViewById(R.id.tv_nome_trilha)).setText(t.nome);
             ((TextView) convertView.findViewById(R.id.tv_data_trilha)).setText(t.dataInicio);
             ((TextView) convertView.findViewById(R.id.tv_distancia_trilha))
@@ -96,31 +101,30 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
                     .setOnClickListener(v -> confirmarApagarUma(t));
             convertView.findViewById(R.id.btn_ver_mapa)
                     .setOnClickListener(v -> abrirMapaTrilha(t));
-
             return convertView;
         }
     }
+
 
 
     private void dialogEditarNome(TrilhaItem t) {
         EditText input = new EditText(this);
         input.setText(t.nome);
         input.setSelection(t.nome.length());
-
         new AlertDialog.Builder(this)
                 .setTitle("Editar nome da trilha")
                 .setView(input)
                 .setPositiveButton("Salvar", (d, w) -> {
-                    String novoNome = input.getText().toString().trim();
-                    if (!novoNome.isEmpty()) {
-                        db.editarNomeTrilha(t.id, novoNome);
+                    String novo = input.getText().toString().trim();
+                    if (!novo.isEmpty()) {
+                        db.editarNomeTrilha(t.id, novo);
                         carregarTrilhas();
                         Toast.makeText(this, "Nome atualizado", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("Cancelar", null)
-                .show();
+                .setNegativeButton("Cancelar", null).show();
     }
+
 
 
     private void confirmarApagarUma(TrilhaItem t) {
@@ -132,9 +136,51 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
                     carregarTrilhas();
                     Toast.makeText(this, "Trilha apagada", Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton("Cancelar", null)
-                .show();
+                .setNegativeButton("Cancelar", null).show();
     }
+
+
+
+    private void confirmarApagarTodas() {
+        if (trilhas.isEmpty()) {
+            Toast.makeText(this, "Nenhuma trilha cadastrada", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new AlertDialog.Builder(this)
+                .setTitle("Apagar todas as trilhas")
+                .setMessage("Esta ação não pode ser desfeita. Confirma?")
+                .setPositiveButton("Apagar tudo", (d, w) -> {
+                    db.deletarTodasTrilhas();
+                    carregarTrilhas();
+                    Toast.makeText(this, "Todas as trilhas apagadas", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null).show();
+    }
+
+
+
+    private void apagarPorIntervalo() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_intervalo, null);
+        EditText etInicio = view.findViewById(R.id.et_data_inicio);
+        EditText etFim    = view.findViewById(R.id.et_data_fim);
+        new AlertDialog.Builder(this)
+                .setTitle("Apagar por intervalo")
+                .setMessage("Formato: dd/MM/yyyy")
+                .setView(view)
+                .setPositiveButton("Apagar", (d, w) -> {
+                    String inicio = etInicio.getText().toString().trim();
+                    String fim    = etFim.getText().toString().trim();
+                    if (inicio.isEmpty() || fim.isEmpty()) {
+                        Toast.makeText(this, "Preencha as duas datas", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    int count = db.deletarTrilhasPorIntervalo(inicio, fim);
+                    carregarTrilhas();
+                    Toast.makeText(this, count + " trilha(s) apagada(s)", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null).show();
+    }
+
 
 
     private void abrirMapaTrilha(TrilhaItem t) {
@@ -149,7 +195,6 @@ public class ConsultarTrilhasActivity extends AppCompatActivity {
         i.putExtra("duracao",    t.duracao);
         startActivity(i);
     }
-
 
     static class TrilhaItem {
         int id;
