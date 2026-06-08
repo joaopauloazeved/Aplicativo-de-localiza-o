@@ -8,7 +8,6 @@
     android:background="#FFFFFF"
     android:padding="12dp">
 
-    <!-- Nome + distância -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +43,6 @@
         android:textColor="#757575"
         android:layout_marginTop="2dp"/>
 
-    <!-- Botões de ação -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

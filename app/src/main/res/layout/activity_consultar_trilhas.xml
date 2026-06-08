@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- Cabeçalho simples -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +35,6 @@
 
     </LinearLayout>
 
-    <!-- Lista de trilhas -->
     <ListView
         android:id="@+id/listview_trilhas"
         android:layout_width="match_parent"
@@ -45,7 +43,6 @@
         android:divider="#E0E0E0"
         android:dividerHeight="1dp"/>
 
-    <!-- Mensagem lista vazia -->
     <TextView
         android:id="@+id/tv_lista_vazia"
         android:layout_width="match_parent"

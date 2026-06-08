@@ -112,12 +112,9 @@ public class MapsActivity extends FragmentActivity
 
         float bearing;
 
-        // COURSE UP
         if (courseUp) {
             bearing = 180;
         }
-
-        // NORTH UP
         else {
             bearing = 0;
         }

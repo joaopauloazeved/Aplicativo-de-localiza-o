@@ -35,7 +35,6 @@ public class VisualizarTrilhaActivity extends FragmentActivity implements OnMapR
 
         db = new Banco(this);
 
-        // Recebe dados da trilha
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             trilhaId   = extras.getInt("trilha_id");
@@ -48,7 +47,6 @@ public class VisualizarTrilhaActivity extends FragmentActivity implements OnMapR
             duracao    = extras.getString("duracao", "-");
         }
 
-        // Preenche overlay de estatísticas
         ((TextView) findViewById(R.id.tv_vis_nome)).setText(nome);
         ((TextView) findViewById(R.id.tv_vis_data_inicio)).setText("Início: " + dataInicio);
         ((TextView) findViewById(R.id.tv_vis_data_fim)).setText("Fim: " + dataFim);
@@ -75,26 +73,22 @@ public class VisualizarTrilhaActivity extends FragmentActivity implements OnMapR
 
         if (pontos.isEmpty()) return;
 
-        // Desenha polilinha do trajeto
         mMap.addPolyline(new PolylineOptions()
                 .addAll(pontos)
                 .color(Color.parseColor("#E53935"))
                 .width(8));
 
-        // Marcador de início (verde)
         mMap.addMarker(new MarkerOptions()
                 .position(pontos.get(0))
                 .title("Início")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        // Marcador de fim (vermelho)
         LatLng fim = pontos.get(pontos.size() - 1);
         mMap.addMarker(new MarkerOptions()
                 .position(fim)
                 .title("Fim")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
-        // Centraliza câmera para abranger todo o trajeto
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng p : pontos) builder.include(p);
         LatLngBounds bounds = builder.build();

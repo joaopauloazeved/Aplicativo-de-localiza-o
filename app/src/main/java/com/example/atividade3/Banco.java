@@ -15,8 +15,6 @@ public class Banco extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "trilhas.db";
     private static final int DATABASE_VERSION  = 1;
-
-    // TABELA TRILHAS
     public static final String TABLE_TRILHAS    = "trilhas";
     public static final String COL_ID           = "id";
     public static final String COL_NOME         = "nome";
@@ -26,8 +24,6 @@ public class Banco extends SQLiteOpenHelper {
     public static final String COL_VEL_MAX      = "vel_max";
     public static final String COL_DISTANCIA    = "distancia";
     public static final String COL_DURACAO      = "duracao";
-
-    // TABELA PONTOS
     public static final String TABLE_PONTOS   = "pontos";
     public static final String COL_TRILHA_ID  = "trilha_id";
     public static final String COL_LATITUDE   = "latitude";
@@ -62,10 +58,6 @@ public class Banco extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PONTOS);
         onCreate(db);
     }
-
-    // ──────────────── TRILHAS ────────────────
-
-    /** Insere trilha inicial (sem dados de fim ainda) e retorna o ID gerado. */
     public long inserirTrilha(String nome, String dataInicio, String dataFim,
                               double velMedia, double velMax,
                               double distancia, String duracao) {
@@ -80,8 +72,6 @@ public class Banco extends SQLiteOpenHelper {
         v.put(COL_DURACAO,     duracao);
         return db.insert(TABLE_TRILHAS, null, v);
     }
-
-    /** Atualiza os campos calculados ao finalizar a trilha. */
     public void finalizarTrilha(long id, String dataFim, double velMedia,
                                 double velMax, double distancia, String duracao) {
         SQLiteDatabase db = getWritableDatabase();
@@ -104,19 +94,11 @@ public class Banco extends SQLiteOpenHelper {
         db.delete(TABLE_TRILHAS, "id=?",       new String[]{String.valueOf(id)});
         db.delete(TABLE_PONTOS,  "trilha_id=?", new String[]{String.valueOf(id)});
     }
-
-    /** Apaga todas as trilhas e pontos. */
     public void deletarTodasTrilhas() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_PONTOS);
         db.execSQL("DELETE FROM " + TABLE_TRILHAS);
     }
-
-    /**
-     * Apaga trilhas cujo data_inicio está dentro do intervalo fornecido.
-     * Datas no formato "dd/MM/yyyy".
-     * Retorna quantas trilhas foram apagadas.
-     */
     public int deletarTrilhasPorIntervalo(String dataInicio, String dataFim) {
         // Busca IDs no intervalo
         Cursor c = getReadableDatabase().rawQuery(
@@ -145,9 +127,6 @@ public class Banco extends SQLiteOpenHelper {
         getWritableDatabase().update(TABLE_TRILHAS, v, "id=?",
                 new String[]{String.valueOf(id)});
     }
-
-    // ──────────────── PONTOS ────────────────
-
     public void inserirPonto(long trilhaId, double latitude, double longitude) {
         ContentValues v = new ContentValues();
         v.put(COL_TRILHA_ID, trilhaId);
@@ -155,8 +134,6 @@ public class Banco extends SQLiteOpenHelper {
         v.put(COL_LONGITUDE, longitude);
         getWritableDatabase().insert(TABLE_PONTOS, null, v);
     }
-
-    /** Retorna lista de LatLng de todos os pontos de uma trilha em ordem de inserção. */
     public List<LatLng> listarPontosTrilha(int trilhaId) {
         List<LatLng> lista = new ArrayList<>();
         Cursor c = getReadableDatabase().rawQuery(
