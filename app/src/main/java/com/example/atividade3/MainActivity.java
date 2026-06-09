@@ -18,11 +18,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         TextView textView   = findViewById(R.id.textView);
-        Button btnConfig    = findViewById(R.id.button_maps);   // Reutilizando o botão
         Button btnRegistrar = findViewById(R.id.button_registrar);
         Button btnConsultar = findViewById(R.id.button_consultar);
 
-        btnConfig.setOnClickListener(this);
         btnRegistrar.setOnClickListener(this);
         btnConsultar.setOnClickListener(this);
 
@@ -31,9 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.button_maps) {
-            startActivity(new Intent(this, Config.class));           // ← Alterado
-        } else if (id == R.id.button_registrar) {
+        if (id == R.id.button_registrar) {
             startActivity(new Intent(this, RegistrarTrilhaActivity.class));
         } else if (id == R.id.button_consultar) {
             startActivity(new Intent(this, ConsultarTrilhasActivity.class));
