@@ -100,7 +100,6 @@ public class Banco extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_TRILHAS);
     }
     public int deletarTrilhasPorIntervalo(String dataInicio, String dataFim) {
-        // Busca IDs no intervalo
         Cursor c = getReadableDatabase().rawQuery(
                 "SELECT id FROM " + TABLE_TRILHAS +
                         " WHERE substr(data_inicio,7,4)||substr(data_inicio,4,2)||substr(data_inicio,1,2)" +

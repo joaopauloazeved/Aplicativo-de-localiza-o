@@ -111,15 +111,17 @@ public class RegistrarTrilhaActivity extends FragmentActivity implements OnMapRe
         trilhaId = db.inserirTrilha("Trilha " + dataInicio, dataInicio, "", 0, 0, 0, "");
         velocidadeMaxima = 0;
         distanciaTotal   = 0;
-        lastLocation     = null;
+        lastLocation  = null;
         pontos.clear();
-        if (polyline       != null) { polyline.remove();       polyline       = null; }
-        if (userMarker     != null) { userMarker.remove();     userMarker     = null; }
+
+        if (polyline  != null) { polyline.remove(); polyline = null; }
+        if (userMarker != null) { userMarker.remove(); userMarker = null; }
         if (accuracyCircle != null) { accuracyCircle.remove(); accuracyCircle = null; }
         rastreando  = true;
         tempoInicio = SystemClock.elapsedRealtime();
         tvStatus.setText("● GRAVANDO");
         tvStatus.setTextColor(Color.parseColor("#FF4444"));
+
         btnIniciar.setEnabled(false);
         btnParar.setEnabled(true);
         iniciarCronometro();
@@ -130,15 +132,18 @@ public class RegistrarTrilhaActivity extends FragmentActivity implements OnMapRe
         rastreando = false;
         pararCronometro();
         pararGPS();
-        long ms         = SystemClock.elapsedRealtime() - tempoInicio;
+        long ms = SystemClock.elapsedRealtime() - tempoInicio;
+
         String dataFim  = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
                 .format(new Date());
         double velMedia = ms > 0 ? (distanciaTotal / 1000.0) / (ms / 3600000.0) : 0;
         String duracao  = formatarTempo(ms);
+
         db.finalizarTrilha(trilhaId, dataFim, velMedia, velocidadeMaxima,
                 distanciaTotal / 1000.0, duracao);
         tvStatus.setText("● PARADO");
         tvStatus.setTextColor(Color.parseColor("#888888"));
+
         btnIniciar.setEnabled(true);
         btnParar.setEnabled(false);
         Toast.makeText(this, "Trilha salva!", Toast.LENGTH_SHORT).show();

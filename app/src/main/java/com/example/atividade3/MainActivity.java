@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView textView        = findViewById(R.id.textView);
         Button btnMaps           = findViewById(R.id.button_maps);
-        Button btnRegistrar      = findViewById(R.id.button_registrar);   // NOVO
-        Button btnConsultar      = findViewById(R.id.button_consultar);   // NOVO
+        Button btnRegistrar      = findViewById(R.id.button_registrar);
+        Button btnConsultar      = findViewById(R.id.button_consultar);
 
         btnMaps.setOnClickListener(this);
         btnRegistrar.setOnClickListener(this);
